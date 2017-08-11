@@ -1,0 +1,17 @@
+---
+project:
+  groupId: de.robinschuerer
+  artifactId: loombase
+  version: 1.0.0-SNAPSHOT
+plugins:
+  - idea
+  - springboot
+#  - junit4
+settings:
+  javaPlatformVersion: 8
+  springboot.version: 1.5.6.RELEASE
+dependencies:
+  - org.springframework.boot:spring-boot-starter-amqp:1.5.6.RELEASE
+  - com.google.guava:guava:21.0
+#testDependencies:
+#  - junit:junit:4.12
