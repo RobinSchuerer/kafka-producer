@@ -3,13 +3,15 @@ package de.robinschuerer.kafka.producer.config;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class TestDataProducer {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TestDataProducer.class);
@@ -20,12 +22,14 @@ public class TestDataProducer {
 
 	private final CountDownLatch latch = new CountDownLatch(3);
 
-//	@PostConstruct
+	@PostConstruct
 	public void setup() throws InterruptedException {
 		produce();
 	}
 
 	private void produce() throws InterruptedException {
+
+		LOGGER.info("sending test data!");
 
 		this.template.send("myTopic", "foo1");
 		this.template.send("myTopic", "foo2");
