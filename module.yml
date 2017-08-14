@@ -8,5 +8,6 @@ dependencies:
   - org.springframework.boot:spring-boot-starter:1.5.6.RELEASE
   - org.springframework.kafka:spring-kafka:1.1.6.RELEASE
   - com.google.guava:guava:21.0
+
 #testDependencies:
 #  - junit:junit:4.12
