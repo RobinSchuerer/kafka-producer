@@ -6,4 +6,5 @@ module de.robinschuerer.kafka.producer {
 	requires spring.beans;
 	requires spring.boot.autoconfigure;
 	requires kafka.clients;
+	requires guava;
 }

@@ -20,22 +20,13 @@ public class TestDataProducer {
 	@Autowired
 	public TestDataProducer(final KafkaTemplate<Integer, String> template) {
 		this.template = template;
-
 		produce();
 	}
 
 	private void produce() {
-		while (true) {
-			final String data = UUID.randomUUID().toString();
-			LOGGER.info("sending test data: {}", data);
+		final String data = UUID.randomUUID().toString();
+		LOGGER.info("sending test data: {}", data);
 
-			this.template.send(QUEUE_NAME, data);
-
-			try {
-				Thread.sleep(300l);
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-			}
-		}
+		this.template.send(QUEUE_NAME, data);
 	}
 }
