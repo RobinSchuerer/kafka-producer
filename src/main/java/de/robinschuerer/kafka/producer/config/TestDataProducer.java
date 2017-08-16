@@ -1,7 +1,6 @@
 package de.robinschuerer.kafka.producer.config;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +15,7 @@ public class TestDataProducer {
 
 	private final KafkaTemplate<Integer, String> template;
 
-
-	private final CountDownLatch latch = new CountDownLatch(3);
+	private static final String QUEUE_NAME = "kafka-test-01";
 
 	@Autowired
 	public TestDataProducer(final KafkaTemplate<Integer, String> template) {
@@ -26,19 +24,18 @@ public class TestDataProducer {
 		produce();
 	}
 
-	private void produce(){
+	private void produce() {
+		while (true) {
+			final String data = UUID.randomUUID().toString();
+			LOGGER.info("sending test data: {}", data);
 
-		try {
-			LOGGER.info("sending test data!");
+			this.template.send(QUEUE_NAME, data);
 
-			this.template.send("myTopic", "foo1");
-			this.template.send("myTopic", "foo2");
-			this.template.send("myTopic", "foo3");
-			latch.await(60, TimeUnit.SECONDS);
-			LOGGER.info("All received");
-		} catch (InterruptedException e){
-			Thread.currentThread().interrupt();
+			try {
+				Thread.sleep(300l);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
 		}
-
 	}
 }
